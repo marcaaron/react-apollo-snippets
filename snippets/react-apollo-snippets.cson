@@ -1,0 +1,414 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+'.source.js':
+
+  # Apollo Boost Client Set Up
+
+  'Apollo Boost Client':
+    'prefix':'abc'
+    'body': """
+      import ApolloClient from "apollo-boost"
+
+      const client = new ApolloClient({
+        uri: "${1:endpoint}"
+      });
+    """
+
+  'Apollo Boost Client with clientState':
+    'prefix':'abcc'
+    'body': """
+      import ApolloClient from "apollo-boost"
+
+      const client = new ApolloClient({
+        uri: "${1:endpoint}",
+        clientState: {
+          defaults,
+          resolvers,
+          typeDefs
+        }
+      });
+    """
+
+  'Apollo Boost App with Client':
+    'prefix':'aba'
+    'body': """
+      import React from "react";
+      import { render } from "react-dom";
+      import { ApolloProvider } from "react-apollo";
+      import ApolloClient from "apollo-boost"
+
+      const client = new ApolloClient({
+        uri: "${1:endpoint}"
+      });
+
+      const App = () =>
+        <ApolloProvider client={client}>
+          <div></div>
+        </ApolloProvider>
+
+      render(<App/>, document.getElementById("root"));
+      """
+
+  # Elements / Pieces
+
+  'New GraphQL Tag':
+    'prefix':'gql'
+    'body': """
+      const ${1:MY_QUERY} = gql`
+        $2
+      `;
+      """
+
+  'Query Component':
+    'prefix':'qc'
+    'body': """
+      <Query
+        query={${1:MY_QUERY}}
+        variables={{}}>
+        {
+          ({ data, loading, error, refetch, networkStatus }) => {
+            if (loading) return 'Loading';
+            if (error) return `Error!: ${error}`;
+            return (
+              <div> </div>
+            )
+          }
+        }
+      </Query>
+      """
+
+  'Mutation Component':
+    'prefix':'mc'
+    'body': """
+      <Mutation
+        mutation={ ${2:MY_MUTATION} }>
+        {
+          (${3:mutationFunc}, { data, loading, called, error }) => {
+            return (
+              <div>
+                <button onClick={(e)=>{
+                  e.preventDefault();
+                  ${3:mutationFunc}({
+                    variables: {
+                      $4
+                    }
+                  })
+                }}/>
+              </div>
+            )
+          }
+        }
+      </Mutation>
+      """
+
+  'ApolloConsumer Component':
+    'prefix': 'ac'
+    'body': """
+      <ApolloConsumer>
+        { client => (
+          <div>
+            <button
+              onClick={async () => {
+                const { data } = await client.query({
+                  query: MY_QUERY,
+                  variables: {
+
+                  }
+                });
+              }}
+            />
+          </div>
+        )}
+      </ApolloConsumer>
+     """
+
+  'Optimistic Response':
+    'prefix':'or'
+    'body':"""
+      optimisiticResponse: {
+        __typeName: "Mutation",
+        updateThing: {
+          id: "",
+          __typeName: "Thing",
+          content: "Expectations lead to disappointment."
+        }
+      }
+      """
+
+  # Imports
+
+  'Import GraphQL Tag':
+    'prefix':'igql'
+    'body': """
+      import { gql } from "apollo-boost";
+      """
+
+  'Import Query Component':
+    'prefix':'iqc'
+    'body': """
+      import { Query } from "react-apollo";
+      """
+  'Import Mutation Component':
+    'prefix':'imc'
+    'body':"""
+      import { Mutation } from "react-apollo"
+      """
+
+  'Import Apollo Provider':
+    'prefix':'iap'
+    'body':"""
+      import { ApolloProvider } from "react-apollo"
+      """
+
+  'Import Compose & GraphQL':
+    'prefix':'icg'
+    'body':"""
+      import { compose, graphql } from "react-apollo";
+      """
+
+  # Components
+
+  ## Query Components
+
+  'React Class with Query Component':
+    'prefix':'qcc'
+    'body': """
+      import React, { Component } from "react";
+      import { Query } from "react-apollo";
+      import { gql } from 'apollo-boost';
+
+      export default class ${1:MyComponent} extends Component {
+        render(){
+          return (
+            <Query
+              query={${2:MY_QUERY}}>
+              {({ data, loading, error, refetch, networkStatus }) => {
+                  if (loading) return 'Loading';
+                  if (error) return `Error!: ${error}`;
+                  return (
+                    <div> ${1:MyComponent} </div>
+                  )
+              }}
+            </Query>
+          )
+        }
+      }
+
+      const ${2:MY_QUERY} = gql`
+        query {
+
+        }
+      `;
+      """
+
+  'React Function with Query Component':
+    'prefix':'qcf'
+    'body': """
+      import React from "react";
+      import { Query } from "react-apollo";
+      import { gql } from 'apollo-boost';
+
+      const ${1:MyComponent} = (props) => {
+        return (
+          <Query
+            query={${2:MY_QUERY}}
+            variables={{}}>
+            {({ data, loading, error, refetch, networkStatus }) => {
+                if (loading) return 'Loading';
+                if (error) return `Error!: ${error}`;
+                return (
+                  <div> ${1:MyComponent} </div>
+                )
+            }}
+          </Query>
+        )
+      }
+
+      const ${2:MY_QUERY} = gql`
+        query {
+
+        }
+      `;
+
+      export default ${1:MyComponent}
+      """
+
+  ## Mutation Components
+
+  'React Class with Mutation Component':
+    'prefix':'mcc'
+    'body': """
+      import React, { Component } from "react";
+      import { Mutation } from "react-apollo";
+      import { gql } from 'apollo-boost';
+
+      export default class ${1:MyComponent} extends Component {
+        render(){
+          return (
+            <Mutation
+              mutation={ ${2:MY_MUTATION} }>
+              {
+                (${3:mutationFunc}, { data, loading, called, error }) => {
+                  return (
+                    <div>
+                      <button onClick={(e)=>{
+                        e.preventDefault();
+                        ${3:mutationFunc}({
+                          variables: {
+                            $4
+                          }
+                        })
+                      }}/>
+                    </div>
+                  )
+                }
+              }
+            </Mutation>
+          )
+        }
+      }
+
+      const ${2:MY_MUTATION} = gql`
+        mutation {
+
+        }
+      `;
+      """
+
+  'React Function with Mutation Component':
+    'prefix':'mcf'
+    'body': """
+      import React from "react";
+      import { Mutation } from "react-apollo";
+      import { gql } from 'apollo-boost';
+
+      const ${1:MyComponent} = (props) => {
+        return (
+          <Mutation
+            mutation={ ${2:MY_MUTATION} }>
+            {
+              (${3:mutationFunc}, { data, loading, called, error }) => {
+                return (
+                  <div>
+                    <button onClick={(e)=>{
+                      e.preventDefault();
+                      ${3:mutationFunc}({
+                        variables: {
+                          $4
+                        }
+                      })
+                    }}/>
+                  </div>
+                )
+              }
+            }
+          </Mutation>
+        )
+      }
+
+      const ${2:MY_MUTATION} = gql`
+        mutation {
+
+        }
+      `;
+
+      export default ${1:MyComponent};
+      """
+
+  ## ApolloConsumer Component
+
+  'ApolloConsumer Class Component':
+    'prefix':'acc'
+    'body':"""
+      import React, { Component } from 'react';
+      import { ApolloConsumer } from 'react-apollo';
+
+      export default class ${1:MyComponent} extends Component {
+        render() {
+          return (
+            <ApolloConsumer>
+              { client => (
+                <div>
+                  <button
+                    onClick={async () => {
+                      const { data } = await client.query({
+                        query: MY_QUERY,
+                        variables: {
+
+                        }
+                      });
+                    }}
+                  />
+                </div>
+              )}
+            </ApolloConsumer>
+          )
+        }
+      }
+      """
+
+  'ApolloConsumer Functional Component':
+    'prefix':'acf'
+    'body':"""
+      import React from 'react';
+      import { ApolloConsumer } from 'react-apollo';
+
+      const ${1:MyComponent} = (props) => {
+        return (
+          <ApolloConsumer>
+            { client => (
+              <div>
+                <button
+                  onClick={async () => {
+                    const { data } = await client.query({
+                      query: MY_QUERY,
+                      variables: {
+
+                      }
+                    });
+                  }}
+                />
+              </div>
+            )}
+          </ApolloConsumer>
+        )
+      }
+
+      export default ${1:MyComponent}
+      """
+
+  # Exports
+
+  'Export default Compose with GraphQL':
+    'prefix':'edc'
+    'body':"""
+      export default compose(
+        graphql(${1:MY_QUERY})
+      )(${2:MyComponent})
+      """
+
+  'Export default GraphQL':
+    'prefix':'edg'
+    'body':"""
+      export default graphql(${1:MY_QUERY})(${2:MyComponent})
+      """
