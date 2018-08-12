@@ -10,13 +10,13 @@
     "url": "https://github.com/marcaaron/react-apollo-snippets.git"
   },
   "keywords": [
-    "react-apollo",
-    "apollo-boost",
+    "apollo",
+    "GraphQL",
     "react",
-    "ES7",
     "snippets",
-    "graphql",
-    "apollo"
+    "ES7",
+    "react-apollo",
+    "apollo-boost"
   ],
   "author": "Marc Aaron Glasser",
   "license": "MIT",
