@@ -150,7 +150,7 @@
         updateThing: {
           id: "",
           __typeName: "Thing",
-          content: "Expectations lead to disappointment."
+          content: "Lowered Expectations"
         }
       }
       """
@@ -184,6 +184,12 @@
     'prefix':'icg'
     'body':"""
       import { compose, graphql } from "react-apollo";
+      """
+
+  'Import GraphQL':
+    'prefix':'ig'
+    'body':"""
+      import { graphql } from "react-apollo";
       """
 
   # Components
