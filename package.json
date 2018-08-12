@@ -1,6 +1,6 @@
 {
   "name": "react-apollo-snippets",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "React Apollo Snippets for Atom",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
