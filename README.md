@@ -2,6 +2,8 @@
 
 This snippet library is currently geared at users of `apollo-boost`. If you're setting things up the old way and would like to add a snippet or two feel free to make suggestions or toss up a PR. If anyone has any suggestions whatsoever on anything I've done here let me know. I tried to create a few useful snippets for common React Apollo patterns I kept running into, but things can always be better :)
 
+Many of these snippets are based examples provided by the [Apollo docs](https://www.apollographql.com).
+
 # Commands
 ## App Set Up
 
