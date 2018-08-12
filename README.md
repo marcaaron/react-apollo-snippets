@@ -189,7 +189,7 @@ export default class MyComponent extends Component {
   render(){
     return (
       <Mutation
-        mutation={ ${2:MY_MUTATION} }>
+        mutation={MY_MUTATION}>
         {(mutationFunc, { data, loading, called, error }) => {
           return (
             <div>
@@ -222,7 +222,7 @@ import { gql } from 'apollo-boost';
 const MyComponent = (props) => {
   return (
     <Mutation
-      mutation={ ${2:MY_MUTATION} }>
+      mutation={MY_MUTATION}>
       {(mutationFunc, { data, loading, called, error }) => {
         return (
           <div>
